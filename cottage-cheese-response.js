@@ -11,6 +11,7 @@ const getResponseText = (text, sessionId, originalText) => {
   let responseText = "";
   let tts = "";
   let card = {};
+  let commands = [];
 
   if (state[sessionId]?.quiz_start) {
     if (text.indexOf("стоп") >= 0) {
@@ -48,16 +49,16 @@ const getResponseText = (text, sessionId, originalText) => {
         responseText = "Привет вездекодерам!";
       } else {
         responseText = "Возможно Вы хотите принять участие в вездекоде?";
-        card = {
-          // type: "MiniApp",
-          // url: "https://vk.com/app7543093",
-
-          type: "Link",
-          url: "https://vk.com/app7543093",
-          title: "Вездекод - Марафон VK",
-          text: "«Вездекод» — это IT-марафон c заданиями, разными по направлениям и сложности, а также конкурсами и викторинами. Здесь находят новые знакомства и незабываемый опыт.\nПодпишитесь, чтобы ничего не пропустить!",
-          image_id: 457239025,
-        };
+        commands = [
+          {
+            type: "BigImage",
+            image_id: 3572018,
+          },
+          {
+            type: "MiniApp",
+            url: "https://vk.com/app7543093",
+          },
+        ];
       }
     }
     if (text.indexOf("пройтиопрос") >= 0) {
@@ -73,30 +74,37 @@ const getResponseText = (text, sessionId, originalText) => {
 
   if (responseText === "") {
     responseText =
-      "Скажите 'Вездекод, команда не творог, а творог' или 'Пройти опрос'";
+      "Скажите 'Вездекод, команда не творог, а творог', 'Пройти опрос' или 'Вездекод'";
   }
   if (tts === "") {
     tts = responseText;
   }
 
-  return [responseText, tts, card];
+  return [responseText, tts, card, commands];
 };
 
 module.exports = ({ request, session, version }) => {
   let text = prepareText(request.original_utterance);
-  let [responseText, tts, card] = getResponseText(
+  let [responseText, tts, card, commands] = getResponseText(
     text,
     session.session_id,
     request.original_utterance
   );
 
+  const response = {
+    text: responseText,
+    tts: tts,
+    end_session: false,
+  };
+
+  if (commands.length > 0) {
+    response["commands"] = commands;
+  } else {
+    response["card"] = card;
+  }
+
   return {
-    response: {
-      text: responseText,
-      tts: tts,
-      card,
-      end_session: false,
-    },
+    response,
     session: pick(["session_id", "message_id", "user_id"], session),
     version,
   };

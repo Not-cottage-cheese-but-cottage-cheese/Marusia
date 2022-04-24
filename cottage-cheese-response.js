@@ -85,7 +85,7 @@ module.exports = ({ request, session, version }) => {
       tts: tts,
       card: {
         type: "BigImage",
-        image_id: '457239017',
+        image_id: 457239017,
       },
       end_session: false,
     },

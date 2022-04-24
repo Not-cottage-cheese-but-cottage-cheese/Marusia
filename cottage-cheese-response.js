@@ -56,8 +56,7 @@ const getResponseText = (text, sessionId, originalText) => {
           },
           {
             type: "MiniApp",
-            // url: "https://vk.com/app7543093",
-            url: "https://vk.com/app7598034"
+            url: "https://vk.com/app7543093",
           },
         ];
       }

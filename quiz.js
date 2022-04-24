@@ -51,7 +51,6 @@ class Quiz {
     457239022, 457239021, 457239019, 457239018, 457239024, 457239020, 457239023,
     457239017,
   ];
-  sounds = [2000512006_456239020, 2000512006_456239019, 2000512006_456239018];
 
   constructor() {}
 
@@ -70,13 +69,11 @@ class Quiz {
 
   getSound() {
     if (this.rightAnswers === 8) {
-      return "<speaker audio_vk_id=2000512006_456239021>";
+      return "<speaker audio_vk_id=-2000512006_456239021>";
     } else if (this.rightAnswers === 0) {
-      ("<speaker audio_vk_id=2000512006_456239022>");
+      return `<speaker audio=marusia-sounds/game-loss-${Math.round(Math.random() * 2 + 1)}>`;
     } else {
-      return `<speaker audio_vk_id=${
-        this.sounds[Math.round(Math.random() * (this.sounds.length - 1))]
-      }>`;
+      return `<speaker audio=marusia-sounds/game-win-${Math.round(Math.random() * 2 + 1)}>`;
     }
   }
 

@@ -80,20 +80,14 @@ module.exports = ({ request, session, version }) => {
   );
 
   return {
-    // response: {
-    //   text: responseText,
-    //   tts: tts,
-    //   end_session: false,
-    //   card,
-    // },
     response: {
-      text: "Возвращаю картинку.",
-      tts: "Возвращаю картинку.",
+      text: responseText,
+      tts: tts,
       card: {
         type: "BigImage",
-        image_id: 457239017,
+        image_id: '457239017',
       },
-      end_session: true,
+      end_session: false,
     },
     session: pick(["session_id", "message_id", "user_id"], session),
     version,

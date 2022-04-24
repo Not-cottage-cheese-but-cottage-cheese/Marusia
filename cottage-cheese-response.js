@@ -55,7 +55,7 @@ const getResponseText = (text, sessionId, originalText) => {
             image_id: 457239025,
           },
           {
-            type: "MiniApp",
+            type: "MiniApps",
             url: "https://vk.com/app7543093",
           },
         ];

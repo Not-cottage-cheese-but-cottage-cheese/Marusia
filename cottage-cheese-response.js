@@ -49,15 +49,11 @@ const getResponseText = (text, sessionId, originalText) => {
     ) {
       responseText = "Привет вездекодерам!";
     }
-    if (text.indexOf("вездекод" >= 0) || text.indexOf("вездеход") >= 0) {
+    if (text.indexOf("вездекод") >= 0 || text.indexOf("вездеход") >= 0) {
       responseText = "Возможно Вы хотите принять участие в вездекоде?";
       card = {
         type: "MiniApp",
         url: "https://vk.com/steps",
-        text: text,
-        t: text.indexOf("вездекод" >= 0),
-        t2: text.indexOf("вездеход" >= 0),
-        t3: text.indexOf("вездекод" >= 0) || text.indexOf("вездеход") >= 0,
         // title: "Вездекод - Марафон VK",
         // text: "«Вездекод» — это IT-марафон c заданиями, разными по направлениям и сложности, а также конкурсами и викторинами. Здесь находят новые знакомства и незабываемый опыт.\nПодпишитесь, чтобы ничего не пропустить!",
         // image_id: 457239025,

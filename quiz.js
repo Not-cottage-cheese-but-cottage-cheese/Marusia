@@ -69,7 +69,7 @@ class Quiz {
 
   getSound() {
     if (this.rightAnswers === 8) {
-      return "<speaker audio_vk_id=-2000512006_456239021>";
+      return "<speaker audio_vk_id=2000512006_456239021>";
     } else if (this.rightAnswers === 0) {
       return `<speaker audio=marusia-sounds/game-loss-${Math.round(Math.random() * 2 + 1)}>`;
     } else {

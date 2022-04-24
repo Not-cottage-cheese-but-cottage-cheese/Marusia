@@ -11,3 +11,7 @@
 ### 30
 Используйте встроенный в Марусю TTS. Озвучьте предыдущие задания.  
 Релиз: [v0.2.0](https://github.com/Not-cottage-cheese-but-cottage-cheese/Marusia/releases/tag/v0.2.0)  
+
+### 40
+Используйте встроенные изображения и дополнительные звуки, чтобы оживить ваш навык, рекомендующий категорию.  
+Релиз: [v0.4.0](https://github.com/Not-cottage-cheese-but-cottage-cheese/Marusia/releases/tag/v0.4.0) 

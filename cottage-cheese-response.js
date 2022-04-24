@@ -64,6 +64,9 @@ const getResponseText = (text, sessionId, originalText) => {
     responseText =
       "Скажите 'Вездекод, команда не творог, а творог' или 'Пройти опрос'";
   }
+  if (tts === "") {
+    tts = responseText;
+  }
 
   return [responseText, tts, card];
 };

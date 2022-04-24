@@ -52,7 +52,7 @@ const getResponseText = (text, sessionId, originalText) => {
         commands = [
           {
             type: "BigImage",
-            image_id: 3572018,
+            image_id: 457239025,
           },
           {
             type: "MiniApp",

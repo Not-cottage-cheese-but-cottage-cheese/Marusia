@@ -89,10 +89,10 @@ module.exports = ({ request, session, version }) => {
     response: {
       text: "Возвращаю картинку.",
       tts: "Возвращаю картинку.",
-      // card: {
-      //   type: "BigImage",
-      //   image_id: 457239017,
-      // },
+      card: {
+        type: "BigImage",
+        image_id: 457239017,
+      },
       end_session: true,
     },
     session: pick(["session_id", "message_id", "user_id"], session),

@@ -15,7 +15,8 @@ class Quiz {
       rightAnswer: "Нет",
     },
     4: {
-      question: "Имя и фамилия человека, кто первым придумал концепцию интернета?",
+      question:
+        "Имя и фамилия человека, кто первым придумал концепцию интернета?",
       rightAnswer: "Джозеф Ликлайдер",
     },
     5: {
@@ -35,6 +36,7 @@ class Quiz {
       rightAnswer: "2012",
     },
   };
+  recomendation = -1;
   topics = [
     "Gamedev",
     "Java",
@@ -45,6 +47,11 @@ class Quiz {
     "Чат-боты",
     "VK Mini Apps",
   ];
+  images = [
+    457239022, 457239021, 457239019, 457239018, 457239024, 457239020, 457239023,
+    457239017,
+  ];
+  sounds = [2000512006_456239020, 2000512006_456239019, 2000512006_456239018];
 
   constructor() {}
 
@@ -54,17 +61,39 @@ class Quiz {
 
   getRecomendations() {
     if (this.rightAnswers === 0) {
+      this.recomendation = -1;
       return "Рекомедуем Вам стоит подтянуть свои навыки, прежде чем учавствовать в вездекоде";
     }
-    return `Рекомедуем Вам тему ${
-      this.topics[Math.round(Math.random() * (this.topics.length - 1))]
-    }`;
+    this.recomendation = Math.round(Math.random() * (this.topics.length - 1));
+    return `Рекомедуем Вам тему ${this.topics[this.recomendation]}`;
+  }
+
+  getSound() {
+    if (this.rightAnswers === 8) {
+      return "<speaker audio_vk_id=2000512006_456239021>";
+    } else if (this.rightAnswers === 0) {
+      ("<speaker audio_vk_id=2000512006_456239022>");
+    } else {
+      return `<speaker audio_vk_id=${
+        this.sounds[Math.round(Math.random() * (this.sounds.length - 1))]
+      }>`;
+    }
+  }
+
+  getImage() {
+    return this.recomendation >= 0
+      ? {
+          type: "BigImage",
+          image_id: this.images[this.recomendation],
+        }
+      : {};
   }
 
   destroy() {
     this.sessionId = "";
     this.currentQuestionId = 1;
     this.rightAnswers = 0;
+    this.recomendation = -1;
   }
 }
 

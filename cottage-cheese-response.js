@@ -8,6 +8,10 @@ const prepareText = (originalText) => {
 
 const getResponseText = (text, sessionId, originalText) => {
   const state = getState(sessionId);
+  let responseText = "";
+  let tts = "";
+  let card = {};
+
   if (state[sessionId]?.quiz_start) {
     if (text.indexOf("стоп") >= 0) {
       if (state[sessionId].quiz) {
@@ -19,17 +23,21 @@ const getResponseText = (text, sessionId, originalText) => {
         state[sessionId].quiz.questions[
           state[sessionId].quiz.currentQuestionId
         ].rightAnswer.toLowerCase();
+
       if (rightAnswer === originalText.toLowerCase()) {
         state[sessionId].quiz.rightAnswers++;
       }
+
       if (state[sessionId].quiz.currentQuestionId === 8) {
         state[sessionId].quiz_start = false;
-        return `Опрос пройден! Правильных ответов: ${
+        responseText = `Опрос пройден! Правильных ответов: ${
           state[sessionId].quiz.rightAnswers
         }\n${state[sessionId].quiz.getRecomendations()}`;
+        tts = `${state[sessionId].quiz.getSound()} ${responseText}`;
+        card = state[sessionId].quiz.getImage();
       } else {
         state[sessionId].quiz.currentQuestionId++;
-        return `${state[sessionId].quiz.currentQuestionId}. ${state[
+        responseText = `${state[sessionId].quiz.currentQuestionId}. ${state[
           sessionId
         ].quiz.nextQuestion()}`;
       }
@@ -39,25 +47,30 @@ const getResponseText = (text, sessionId, originalText) => {
       (text.indexOf("вездекод") >= 0 || text.indexOf("вездеход") >= 0) &&
       text.indexOf("нетворогатворог") >= 0
     ) {
-      return "Привет вездекодерам!";
+      responseText = "Привет вездекодерам!";
     }
     if (text.indexOf("пройтиопрос") >= 0) {
       state[sessionId] = {
         quiz: new Quiz(),
         quiz_start: true,
       };
-      return `Вам будет задано 8 вопросов!\nСкажите 'стоп' для выхода из опроса.\n1. ${state[
+      responseText = `Вам будет задано 8 вопросов!\nСкажите 'стоп' для выхода из опроса.\n1. ${state[
         sessionId
       ].quiz.nextQuestion()}`;
     }
   }
 
-  return "Скажите 'Вездекод, команда не творог, а творог' или 'Пройти опрос'";
+  if (responseText === "") {
+    responseText =
+      "Скажите 'Вездекод, команда не творог, а творог' или 'Пройти опрос'";
+  }
+
+  return [responseText, tts, card];
 };
 
 module.exports = ({ request, session, version }) => {
   let text = prepareText(request.original_utterance);
-  let responseText = getResponseText(
+  let { responseText, tts, card } = getResponseText(
     text,
     session.session_id,
     request.original_utterance
@@ -66,8 +79,9 @@ module.exports = ({ request, session, version }) => {
   return {
     response: {
       text: responseText,
-      tts: responseText,
+      tts: tts,
       end_session: false,
+      card,
     },
     session: pick(["session_id", "message_id", "user_id"], session),
     version,

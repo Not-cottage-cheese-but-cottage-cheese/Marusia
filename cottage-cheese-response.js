@@ -70,7 +70,7 @@ const getResponseText = (text, sessionId, originalText) => {
 
 module.exports = ({ request, session, version }) => {
   let text = prepareText(request.original_utterance);
-  let { responseText, tts, card } = getResponseText(
+  let [responseText, tts, card] = getResponseText(
     text,
     session.session_id,
     request.original_utterance

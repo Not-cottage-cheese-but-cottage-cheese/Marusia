@@ -14,4 +14,8 @@
 
 ### 40
 Используйте встроенные изображения и дополнительные звуки, чтобы оживить ваш навык, рекомендующий категорию.  
-Релиз: [v0.4.0](https://github.com/Not-cottage-cheese-but-cottage-cheese/Marusia/releases/tag/v0.4.0) 
+Релиз: [v0.4.0](https://github.com/Not-cottage-cheese-but-cottage-cheese/Marusia/releases/tag/v0.4.0)  
+
+### 50
+Используйте встроенные изображения и дополнительные звуки, чтобы оживить ваш навык, рекомендующий категорию.  
+Релиз: [v0.5.0](https://github.com/Not-cottage-cheese-but-cottage-cheese/Marusia/releases/tag/v0.5.0)  
